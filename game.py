@@ -2,6 +2,7 @@ import pygame
 from constants import *
 from player import *
 from block import *
+from map import *
 
 class Game():
 
@@ -11,18 +12,10 @@ class Game():
         
 
     def init_player(self):
-        #self.player = Player(SCREEN_WIDTH - 35, SCREEN_HEIGHT - 70, 15, 30)
-        self.player = Player(200, 10, 15, 30)
+        self.player = Player(SCREEN_WIDTH/16, SCREEN_HEIGHT - 70, 15, 30)
 
     def init_block(self):
-        self.blocks = []
-
-        
-
-        self.blocks.append(Block(0, SCREEN_HEIGHT-20, SCREEN_WIDTH, 20, Color.GREEN.value)) #ground
-        self.blocks.append(Block(50, SCREEN_HEIGHT-100, 60, 20, Color.BLUE.value)) 
-        self.blocks.append(Block(150, SCREEN_HEIGHT-150, 60, 20, Color.BLUE.value)) 
-        self.blocks.append(Block(250, SCREEN_HEIGHT-150, 60, 70, Color.YELLOW.value, type="win")) 
+        self.blocks = generate_map()
         
 
     def start(self):

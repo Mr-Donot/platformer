@@ -12,7 +12,7 @@ class Game():
         
 
     def init_player(self):
-        self.player = Player(SCREEN_WIDTH/16, SCREEN_HEIGHT - 70, 15, 30)
+        self.player = Player(SCREEN_WIDTH/16, SCREEN_HEIGHT - 70, SCREEN_WIDTH/40, SCREEN_HEIGHT/20)
 
     def init_block(self):
         self.blocks = generate_map()

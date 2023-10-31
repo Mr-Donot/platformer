@@ -10,3 +10,6 @@ class Block():
         self.height = height
         self.color = color
         self.type = type
+
+    def __str__(self):
+        return f"{self.type} : \n x,y : [{self.x},{self.y}]\n w,h : [{self.width},{self.height}]"

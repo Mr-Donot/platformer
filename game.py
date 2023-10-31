@@ -22,7 +22,7 @@ class Game():
         self.blocks.append(Block(0, SCREEN_HEIGHT-20, SCREEN_WIDTH, 20, Color.GREEN.value)) #ground
         self.blocks.append(Block(50, SCREEN_HEIGHT-100, 60, 20, Color.BLUE.value)) 
         self.blocks.append(Block(150, SCREEN_HEIGHT-150, 60, 20, Color.BLUE.value)) 
-        self.blocks.append(Block(250, SCREEN_HEIGHT-200, 60, 20, Color.YELLOW.value, type="win")) 
+        self.blocks.append(Block(250, SCREEN_HEIGHT-150, 60, 70, Color.YELLOW.value, type="win")) 
         
 
     def start(self):
@@ -127,8 +127,7 @@ class Game():
             for block in self.blocks:
                 block_rect = pygame.Rect(block.x, block.y, block.width, block.height)
                 if player_rect.colliderect(block_rect):
-                    
-                    if block.type == "win" :
+                    if block.type == "win" and player.dy >= 0 and block.x - player.width < player.x < block.x + block.width and player.y < block.y:
                         self.running = False
 
                     if player.dy > 0:

@@ -8,6 +8,7 @@ class Game():
     def __init__(self, fps=60):
         self.fps = fps
         self.start()
+        
 
     def init_player(self):
         #self.player = Player(SCREEN_WIDTH - 35, SCREEN_HEIGHT - 70, 15, 30)
@@ -21,7 +22,8 @@ class Game():
         self.blocks.append(Block(0, SCREEN_HEIGHT-20, SCREEN_WIDTH, 20, Color.GREEN.value)) #ground
         self.blocks.append(Block(50, SCREEN_HEIGHT-100, 60, 20, Color.BLUE.value)) 
         self.blocks.append(Block(150, SCREEN_HEIGHT-150, 60, 20, Color.BLUE.value)) 
-        self.blocks.append(Block(250, SCREEN_HEIGHT-200, 60, 20, Color.YELLOW.value)) 
+        self.blocks.append(Block(250, SCREEN_HEIGHT-200, 60, 20, Color.YELLOW.value, type="win")) 
+        
 
     def start(self):
         pygame.init()
@@ -33,20 +35,19 @@ class Game():
 
 
     def run(self):
-        running = True
+        self.running = True
         clock = pygame.time.Clock()
         mouse_button_held = False
-        while running:
+        while self.running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    running = False
+                    self.running = False
             
             mouse_buttons = pygame.mouse.get_pressed()
 
-            #add circle
+            #if mouse needed
             if mouse_buttons[0]:
                 mouse_x, mouse_y = pygame.mouse.get_pos()
-                print("here", mouse_x, mouse_y)
                 if not mouse_button_held:
                     mouse_button_held = True
                 else:
@@ -126,6 +127,10 @@ class Game():
             for block in self.blocks:
                 block_rect = pygame.Rect(block.x, block.y, block.width, block.height)
                 if player_rect.colliderect(block_rect):
+                    
+                    if block.type == "win" :
+                        self.running = False
+
                     if player.dy > 0:
                         player.y = block.y - player.height
                         player.dy = 0

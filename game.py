@@ -6,25 +6,31 @@ from map import *
 
 class Game():
 
-    def __init__(self, fps=60):
+    def __init__(self, fps=60, maps=[0]):
         self.fps = fps
+        self.maps = maps
         self.start()
         
 
     def init_player(self):
         self.player = Player(SCREEN_WIDTH/16, SCREEN_HEIGHT - 70, SCREEN_WIDTH/40, SCREEN_HEIGHT/20)
 
-    def init_block(self):
-        self.blocks = generate_map()
+    def init_block(self, id_map):
+        self.blocks = generate_map(id_map)
         
 
     def start(self):
         pygame.init()
-        self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-        pygame.display.set_caption("Platformer")
-        self.init_player()
-        self.init_block()
-        self.run()
+        
+        
+        for m in self.maps:
+            self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+            pygame.display.set_caption("Platformer")
+            self.init_player()
+            self.init_block(m)
+            self.run()
+        
+        pygame.quit()
 
 
     def run(self):
@@ -68,7 +74,7 @@ class Game():
             self.update()
             clock.tick(self.fps)
 
-        pygame.quit()
+
 
     def draw_map(self):
         self.screen.fill(Color.BLACK.value)

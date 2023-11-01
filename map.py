@@ -2,7 +2,11 @@ from constants import *
 from block import *
 
 
-def generate_map():
+def generate_map(id):
+    if id == 0:
+        return map0()
+
+def map0():
     blocks = []
 
     blocks.append(Block(0, SCREEN_HEIGHT-SCREEN_HEIGHT/30, SCREEN_WIDTH, SCREEN_HEIGHT/30, Color.GREEN.value)) #ground

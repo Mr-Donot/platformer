@@ -1,4 +1,4 @@
 from game import *
 
 
-g = Game(60)
+g = Game(60, [0,0])

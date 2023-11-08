@@ -66,10 +66,21 @@ class Game():
                 self.player.can_jump = False
 
 
-            if keys[pygame.K_DOWN]:
-                
-                self.player.jumping = False
-                self.player.nb_jumping_frame = 0
+            if keys[pygame.K_DOWN] :
+                if not self.player.is_down:
+                    self.player.y += SCREEN_HEIGHT/40
+                    self.player.height = SCREEN_HEIGHT/40
+                    self.player.is_down = True
+                    self.player.speed_x /=2
+                    self.player.jumping_height *=1.5
+
+            else:
+                if self.player.is_down:
+                    self.player.y -= SCREEN_HEIGHT/40
+                    self.player.height = SCREEN_HEIGHT/20
+                    self.player.speed_x *= 2
+                    self.player.jumping_height /=1.5
+                    self.player.is_down = False
 
             self.update()
             clock.tick(self.fps)
@@ -98,6 +109,10 @@ class Game():
 
 
         #draw player
+        if self.player.is_buff_jump:
+            self.player.color = Color.WHITE.value
+        else:
+            self.player.color = Color.RED.value
         pygame.draw.rect(self.screen, self.player.color, (self.player.x, self.player.y, self.player.width, self.player.height))
         pygame.display.flip()
             
@@ -124,23 +139,47 @@ class Game():
 
         if player.dx != 0 or player.dy != 0:
             for block in self.blocks:
+
                 block_rect = pygame.Rect(block.x, block.y, block.width, block.height)
                 if player_rect.colliderect(block_rect):
-                    if block.type == "win" and player.dy >= 0 and block.x - player.width < player.x < block.x + block.width and player.y < block.y:
-                        self.running = False
+                    block.apply_effect(self)
+                    if block.type != "jump" and player.is_buff_jump :
+                        player.jumping_height *= BUFF_JUMP
+                        player.is_buff_jump = False
 
+                    #player fall
                     if player.dy > 0:
-                        player.y = block.y - player.height
-                        player.dy = 0
-                        player.jumping = False
-                        player.can_jump = True
+                        if block.y > player.y > block.y - player.height  :
+                            player.y = block.y - player.height 
+                            player.dy = 0
+
+                            player.jumping = False
+                            player.can_jump = True
+                        else:
+                            if player.dx > 0:
+                                if block.x > player.x > block.x - player.width  :
+                                    player.x = block.x - player.width - 1
+                            elif player.dx < 0:
+                                if block.x < player.x < block.x + block.width :
+                                    player.x = block.x + block.width + 1
+
+
+
+                    #player is jumping
                     elif player.dy < 0:
-                        player.y = block.y + block.height
-                        player.dy = 0
-                    elif player.dx > 0:
-                        player.x = block.x - player.width
-                    elif player.dx < 0:
-                        player.x = block.x + block.width
+                        
+                        if block.y + block.height <= player.y - player.dy:
+                            player.y = block.y + block.height
+                            player.dy = 0
+                        else:
+                            if player.dx > 0:
+                                if block.x > player.x > block.x - player.width :
+                                    player.x = block.x - player.width - 1
+                            elif player.dx < 0:
+                                if block.x < player.x < block.x + block.width  :
+                                    player.x = block.x + block.width + 1
+                        
+
 
                     player_moved = True
 

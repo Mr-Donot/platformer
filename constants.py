@@ -4,6 +4,7 @@ SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 GRAVITY = 0.25
 FRICTION = 0.05
+BUFF_JUMP = 3/2
 
 
 
@@ -17,3 +18,5 @@ class Color(Enum):
     MAGENTA = (255, 0, 255)
     WHITE = (255, 255, 255)
     BLACK = (0, 0, 0)
+    BURGUNDY = (144, 12, 63)
+    LIGHT_GREEN = (218, 247, 166)

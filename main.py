@@ -1,4 +1,4 @@
 from game import *
 
 
-g = Game(60, [0,0])
+g = Game(fps=60, maps=[1, 0])

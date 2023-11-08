@@ -19,6 +19,8 @@ class Player():
         self.can_jump = False
         self.jumping = False
         self.nb_jumping_frame = 0
+        self.is_down = False
+        self.is_buff_jump = False
 
     def __str__(self):
         return f"{self.name} : \n x,y : [{self.x},{self.y}]\n dx,dy : [{self.dx},{self.dy}]"

@@ -63,7 +63,16 @@ def map1():
 def map2():
     blocks = []
 
+
+
     blocks.append(Block(0, SCREEN_HEIGHT-SCREEN_HEIGHT/30, SCREEN_WIDTH, SCREEN_HEIGHT/30, Color.GREEN.value)) #ground
+
+
+    blocks.append(Block(SCREEN_WIDTH*3/16, SCREEN_HEIGHT*13/16, SCREEN_WIDTH/8, SCREEN_HEIGHT/30, Color.BURGUNDY.value, type="jump"))
+    blocks.append(Block(SCREEN_WIDTH*3/4 - SCREEN_WIDTH/8, SCREEN_HEIGHT*9/16, SCREEN_WIDTH/8, SCREEN_HEIGHT/30, Color.BURGUNDY.value, type="jump"))
+    blocks.append(Block(SCREEN_WIDTH*3/32, SCREEN_HEIGHT*12/32, SCREEN_WIDTH/8, SCREEN_HEIGHT/30, Color.BURGUNDY.value, type="jump"))
+    blocks.append(Block(SCREEN_WIDTH*3/4 - SCREEN_WIDTH/8, SCREEN_HEIGHT*3/16, SCREEN_WIDTH/8, SCREEN_HEIGHT/30, Color.BURGUNDY.value, type="jump"))
+    
 
     blocks.append(Block(SCREEN_WIDTH*28/32, SCREEN_HEIGHT/8 - SCREEN_HEIGHT/30, SCREEN_WIDTH*3/80, SCREEN_HEIGHT/30, Color.YELLOW.value, type="win"))
 

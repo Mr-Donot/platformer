@@ -33,7 +33,6 @@ Ennemies :
 
 type of blocks : 
 - portals
-- lava (put back to spawn point)
 - locked door (need a key to open it)
 
 Game over screen (need lives system)

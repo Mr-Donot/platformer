@@ -13,11 +13,19 @@ class Game():
         
 
     def init_player(self):
-        self.player = Player(SCREEN_WIDTH/16, SCREEN_HEIGHT - 70, SCREEN_WIDTH/40, SCREEN_HEIGHT/20)
+        
+        self.player = Player(self.spawn_block.x + (self.spawn_block.width - PLAYER_WIDTH)/2 , self.spawn_block.y - PLAYER_HEIGHT, PLAYER_WIDTH, PLAYER_HEIGHT)
 
     def init_block(self, id_map):
         self.blocks = generate_map(id_map)
+        self.spawn_block : Block = self.get_spawn_point()
         
+    def get_spawn_point(self):
+        for block in self.blocks:
+            if block.type == "spawn":
+                return block
+        return None
+                
 
     def start(self):
         pygame.init()
@@ -26,8 +34,9 @@ class Game():
         for m in self.maps:
             self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
             pygame.display.set_caption("Platformer")
-            self.init_player()
             self.init_block(m)
+            self.init_player()
+
             self.run()
         
         pygame.quit()

@@ -9,7 +9,8 @@ def generate_map(id):
         return map1()
     elif id == 2:
         return map2()
-
+    elif id == 3:
+        return map3()
     else:
         return no_map()
 
@@ -22,6 +23,8 @@ def map0():
     blocks = []
 
     blocks.append(Block(0, SCREEN_HEIGHT-SCREEN_HEIGHT/30, SCREEN_WIDTH, SCREEN_HEIGHT/30, Color.GREEN.value)) #ground
+    blocks.append(Block(SCREEN_WIDTH/16 - SCREEN_WIDTH/80, SCREEN_HEIGHT-SCREEN_HEIGHT/30, SCREEN_WIDTH/20, SCREEN_HEIGHT/60, Color.LIGHT_GREY.value, type="spawn")) #spawn point
+
     blocks.append(Block(SCREEN_WIDTH*3/16, SCREEN_HEIGHT*13/16, SCREEN_WIDTH/8, SCREEN_HEIGHT/30, Color.BLUE.value))
     blocks.append(Block(SCREEN_WIDTH/2 - SCREEN_WIDTH/8, SCREEN_HEIGHT*11/16, SCREEN_WIDTH/8, SCREEN_HEIGHT/30, Color.BLUE.value))
     blocks.append(Block(SCREEN_WIDTH*3/4 - SCREEN_WIDTH/8, SCREEN_HEIGHT*9/16, SCREEN_WIDTH/8, SCREEN_HEIGHT/30, Color.BLUE.value))
@@ -37,7 +40,7 @@ def map0():
 def map1():
     blocks = []
     blocks.append(Block(0, SCREEN_HEIGHT-SCREEN_HEIGHT/30, SCREEN_WIDTH, SCREEN_HEIGHT/30, Color.GREEN.value)) #ground
-    
+    blocks.append(Block(SCREEN_WIDTH/16 - SCREEN_WIDTH/80, SCREEN_HEIGHT-SCREEN_HEIGHT/30, SCREEN_WIDTH/20, SCREEN_HEIGHT/60, Color.LIGHT_GREY.value, type="spawn")) #spawn point
     #Mains horizontals platforms
     blocks.append(Block(0, SCREEN_HEIGHT*3/4 - SCREEN_HEIGHT/30, SCREEN_WIDTH*13/16, SCREEN_HEIGHT/30, Color.BLUE.value))
     blocks.append(Block(SCREEN_WIDTH*3/16, SCREEN_HEIGHT/2 - SCREEN_HEIGHT/30, SCREEN_WIDTH*13/16, SCREEN_HEIGHT/30, Color.BLUE.value))
@@ -63,17 +66,34 @@ def map1():
 def map2():
     blocks = []
 
-
-
     blocks.append(Block(0, SCREEN_HEIGHT-SCREEN_HEIGHT/30, SCREEN_WIDTH, SCREEN_HEIGHT/30, Color.GREEN.value)) #ground
-
-
+    blocks.append(Block(SCREEN_WIDTH/16 - SCREEN_WIDTH/80, SCREEN_HEIGHT-SCREEN_HEIGHT/30, SCREEN_WIDTH/20, SCREEN_HEIGHT/60, Color.LIGHT_GREY.value, type="spawn")) #spawn point
     blocks.append(Block(SCREEN_WIDTH*3/16, SCREEN_HEIGHT*13/16, SCREEN_WIDTH/8, SCREEN_HEIGHT/30, Color.BURGUNDY.value, type="jump"))
     blocks.append(Block(SCREEN_WIDTH*3/4 - SCREEN_WIDTH/8, SCREEN_HEIGHT*9/16, SCREEN_WIDTH/8, SCREEN_HEIGHT/30, Color.BURGUNDY.value, type="jump"))
     blocks.append(Block(SCREEN_WIDTH*3/32, SCREEN_HEIGHT*12/32, SCREEN_WIDTH/8, SCREEN_HEIGHT/30, Color.BURGUNDY.value, type="jump"))
     blocks.append(Block(SCREEN_WIDTH*3/4 - SCREEN_WIDTH/8, SCREEN_HEIGHT*3/16, SCREEN_WIDTH/8, SCREEN_HEIGHT/30, Color.BURGUNDY.value, type="jump"))
-    
-
     blocks.append(Block(SCREEN_WIDTH*28/32, SCREEN_HEIGHT/8 - SCREEN_HEIGHT/30, SCREEN_WIDTH*3/80, SCREEN_HEIGHT/30, Color.YELLOW.value, type="win"))
+
+    return blocks
+
+
+def map3():
+    blocks = []
+
+
+    blocks.append(Block(SCREEN_WIDTH/16 - SCREEN_WIDTH/80, SCREEN_HEIGHT/10, SCREEN_WIDTH/20, SCREEN_HEIGHT/30, Color.LIGHT_GREY.value, type="spawn")) #spawn point
+    blocks.append(Block(0, SCREEN_HEIGHT-SCREEN_HEIGHT/30, SCREEN_WIDTH, SCREEN_HEIGHT/30, Color.RED.value, type="lava")) #ground
+
+    blocks.append(Block((SCREEN_WIDTH - SCREEN_WIDTH/40)/2, 0, SCREEN_WIDTH/40, SCREEN_HEIGHT/2,Color.BLUE.value))
+
+    blocks.append(Block((SCREEN_WIDTH - SCREEN_WIDTH/40)/2, SCREEN_HEIGHT/2 + PLAYER_HEIGHT*3/2, SCREEN_WIDTH/40, SCREEN_HEIGHT/4,Color.BLUE.value))
+
+
+    blocks.append(Block(SCREEN_WIDTH*3/4,SCREEN_HEIGHT*3/4,SCREEN_WIDTH/8, SCREEN_HEIGHT/30, Color.BURGUNDY.value, type="jump"))
+    blocks.append(Block((SCREEN_WIDTH - SCREEN_WIDTH/40)/2 + SCREEN_WIDTH/40, SCREEN_HEIGHT/2 - SCREEN_HEIGHT/30, SCREEN_WIDTH/8, SCREEN_HEIGHT/30, Color.BURGUNDY.value, type="jump"))
+    blocks.append(Block((SCREEN_WIDTH - SCREEN_WIDTH/40)/2 + SCREEN_WIDTH/40, SCREEN_HEIGHT/10 + SCREEN_HEIGHT/30, SCREEN_WIDTH/8, SCREEN_HEIGHT/30, Color.BURGUNDY.value, type="jump"))
+    
+    blocks.append(Block(SCREEN_WIDTH - (SCREEN_WIDTH/16 - SCREEN_WIDTH/80) - SCREEN_WIDTH/20, SCREEN_HEIGHT/10, SCREEN_WIDTH/20, SCREEN_HEIGHT/30, Color.YELLOW.value, type="win"))
+    
 
     return blocks

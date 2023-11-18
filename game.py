@@ -37,7 +37,9 @@ class Game():
             self.init_block(m)
             self.init_player()
 
-            self.run()
+            has_quit = self.run()
+            if has_quit :
+                break
         
         pygame.quit()
 
@@ -50,6 +52,7 @@ class Game():
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.running = False
+                    return True
             
             mouse_buttons = pygame.mouse.get_pressed()
 
@@ -93,6 +96,7 @@ class Game():
 
             self.update()
             clock.tick(self.fps)
+        return False
 
 
 

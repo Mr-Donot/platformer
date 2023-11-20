@@ -29,7 +29,6 @@ class GameManager():
 
 
     def use_result(self):
-        print(self.result)
         if self.result is None:
             return
         if self.result[0] == "homepage" or self.result == "homepage":

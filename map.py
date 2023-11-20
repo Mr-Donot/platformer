@@ -17,6 +17,7 @@ def generate_map(id):
 def no_map():
     blocks = []
     blocks.append(Block(0, SCREEN_HEIGHT-SCREEN_HEIGHT/30, SCREEN_WIDTH, SCREEN_HEIGHT/30, Color.YELLOW.value, type="win")) #ground
+    blocks.append(Block(SCREEN_WIDTH/16 - SCREEN_WIDTH/80, SCREEN_HEIGHT-SCREEN_HEIGHT/30, SCREEN_WIDTH/20, SCREEN_HEIGHT/60, Color.LIGHT_GREY.value, type="spawn")) #spawn point
     return blocks
 
 def map0():

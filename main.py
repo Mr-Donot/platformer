@@ -1,4 +1,3 @@
-from game import *
-from homePage import *
+from gameManager import *
 
-hp = Homepage()
+GameManager()

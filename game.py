@@ -9,7 +9,6 @@ class Game():
     def __init__(self, fps=60, maps=[0]):
         self.fps = fps
         self.maps = maps
-        self.start()
         
 
     def init_player(self):
@@ -27,24 +26,22 @@ class Game():
         return None
                 
 
-    def start(self):
+    def run(self):
         pygame.init()
-        
-        
         for m in self.maps:
             self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
             pygame.display.set_caption("Platformer")
             self.init_block(m)
             self.init_player()
 
-            has_quit = self.run()
+            has_quit = self.run_one_map()
             if has_quit :
                 break
-        
         pygame.quit()
+        return "homepage" #TODO page de win / game over ici
 
 
-    def run(self):
+    def run_one_map(self):
         self.running = True
         clock = pygame.time.Clock()
         mouse_button_held = False

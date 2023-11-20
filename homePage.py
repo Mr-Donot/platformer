@@ -4,7 +4,7 @@ from player import *
 from block import *
 from map import *
 import sys
-from game import *
+
 
 class Homepage():
 
@@ -12,8 +12,7 @@ class Homepage():
         pygame.init()
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
         pygame.display.set_caption("Platformer")
-
-        self.run()
+        self.result = None
 
 
     def create_one_bouton(self, texte, x, y):
@@ -44,10 +43,11 @@ class Homepage():
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     if self.aventure_rect.collidepoint(event.pos):
                         pygame.quit()
-                        g = Game(fps=60, maps=[0, 1, 2, 3])
-                        return
+                        return ["game", 60, [0, 1, 2, 3]]
                     elif self.free_play_rect.collidepoint(event.pos):
-                        print(f"Not implemented for now, please come back later :)")
+                        pygame.quit()
+                        return ["freeplay", None, None]
+                        
                     elif self.exit_rect.collidepoint(event.pos):
                         pygame.quit()
                         sys.exit()

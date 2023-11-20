@@ -3,7 +3,7 @@
 This platformer is still in development.
 There is no clear objective to this project.
 
-Currently 3 maps playable
+Currently 4 maps playable
 
 **Controls : Arrows**
 

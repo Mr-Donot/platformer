@@ -43,9 +43,5 @@ Winning screen :
 - timer shown at the end
 - score shown at the end
 
-First page :
-- "Adventure mode" --> all levels sorted
-- "Level mode" --> can choose the levels
-
 New gameplay :
 - 1v1 : 2 players, first to the winning block win

@@ -1,4 +1,5 @@
 from enum import Enum
+import pygame
 
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
@@ -9,6 +10,7 @@ BUFF_JUMP = 3/2
 PLAYER_WIDTH = SCREEN_WIDTH/40
 PLAYER_HEIGHT = SCREEN_HEIGHT/20
 
+FPS = 60
 
 
 class Color(Enum):
@@ -24,3 +26,15 @@ class Color(Enum):
     LIGHT_GREEN = (218, 247, 166)
     LIGHT_GREY = (191, 191, 191)
     DARK_GREY = (63, 63, 63)
+
+
+KEYS = {
+    "up": pygame.K_UP,
+    "down": pygame.K_DOWN,
+    "left": pygame.K_LEFT,
+    "right": pygame.K_RIGHT,
+    "z": pygame.K_z,
+    "q": pygame.K_q,
+    "s": pygame.K_s,
+    "d": pygame.K_d
+}

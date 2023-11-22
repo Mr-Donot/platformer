@@ -21,6 +21,11 @@ class GameManager():
         self.page = Freeplay()
         self.result = self.page.run()
         self.use_result()
+    
+    def launch_2players(self, fps, maps):
+        self.page = Game(fps, maps)
+        self.result = self.page.run()
+        self.use_result()
 
     def launch_game(self, fps, maps):
         self.page = Game(fps, maps)
@@ -35,6 +40,8 @@ class GameManager():
             self.launch_homepage()
         elif self.result[0] == "freeplay" or self.result == "freeplay":
             self.launch_freeplay()
+        elif self.result[0] == "2players" or self.result == "2players":
+            self.launch_2players(self.result[1], self.result[2])
         elif self.result[0] == "game":
             self.launch_game(self.result[1], self.result[2])
         

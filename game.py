@@ -6,14 +6,15 @@ from map import *
 
 class Game():
 
-    def __init__(self, fps=60, maps=[0]):
+    def __init__(self, fps=60, maps=[0], nb_player=1):
         self.fps = fps
         self.maps = maps
+        self.nb_player = nb_player
         
 
-    def init_player(self):
+    def init_players(self, keys=["up", "down", "left", "right"], color=Color.GREEN.value, name="player_1"):
         
-        self.player = Player(self.spawn_block.x + (self.spawn_block.width - PLAYER_WIDTH)/2 , self.spawn_block.y - PLAYER_HEIGHT, PLAYER_WIDTH, PLAYER_HEIGHT)
+        self.players.append(Player(self.spawn_block.x + (self.spawn_block.width - PLAYER_WIDTH)/2 , self.spawn_block.y - PLAYER_HEIGHT, PLAYER_WIDTH, PLAYER_HEIGHT, color=color, keys=keys, name=name))
 
     def init_block(self, id_map):
         self.blocks = generate_map(id_map)
@@ -29,10 +30,12 @@ class Game():
     def run(self):
         pygame.init()
         for m in self.maps:
+            self.players = []
             self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
             pygame.display.set_caption("Platformer")
             self.init_block(m)
-            self.init_player()
+            self.init_players(keys=["up", "down", "left", "right"], color=Color.RED.value, name="player_1")
+            self.init_players(keys=["z", "s", "q", "d"], color=Color.CYAN.value, name="player_2")
 
             has_quit = self.run_one_map()
             if has_quit :
@@ -61,41 +64,41 @@ class Game():
                 else:
                     mouse_button_held = False
 
-
-
             keys = pygame.key.get_pressed()
-            if keys[pygame.K_LEFT]:
-                self.player.dx -= self.player.speed_x
-
-            if keys[pygame.K_RIGHT]:
-                self.player.dx += self.player.speed_x
-
-            if keys[pygame.K_UP] and self.player.can_jump:
-                self.player.jumping = True
-                self.player.can_jump = False
-
-
-            if keys[pygame.K_DOWN] :
-                if not self.player.is_down:
-                    self.player.y += SCREEN_HEIGHT/40
-                    self.player.height = SCREEN_HEIGHT/40
-                    self.player.is_down = True
-                    self.player.speed_x /=2
-                    self.player.jumping_height *=1.5
-
-            else:
-                if self.player.is_down:
-                    self.player.y -= SCREEN_HEIGHT/40
-                    self.player.height = SCREEN_HEIGHT/20
-                    self.player.speed_x *= 2
-                    self.player.jumping_height /=1.5
-                    self.player.is_down = False
+            for player in self.players:
+                self.move_player(player, keys)
 
             self.update()
             clock.tick(self.fps)
         return False
 
+    def move_player(self, player, keys):
+        if keys[KEYS[player.keys[2]]]:
+            player.dx -= player.speed_x
 
+        if keys[KEYS[player.keys[3]]]:
+            player.dx += player.speed_x
+
+        if keys[KEYS[player.keys[0]]] and player.can_jump:
+            player.jumping = True
+            player.can_jump = False
+
+
+        if keys[KEYS[player.keys[1]]] :
+            if not player.is_down:
+                player.y += SCREEN_HEIGHT/40
+                player.height = SCREEN_HEIGHT/40
+                player.is_down = True
+                player.speed_x /=2
+                player.jumping_height *=1.5
+
+        else:
+            if player.is_down:
+                player.y -= SCREEN_HEIGHT/40
+                player.height = SCREEN_HEIGHT/20
+                player.speed_x *= 2
+                player.jumping_height /=1.5
+                player.is_down = False
 
     def draw_map(self):
         self.screen.fill(Color.BLACK.value)
@@ -108,23 +111,26 @@ class Game():
 
         self.draw_map()
         
-        self.player.x += self.player.dx
-        self.jump(self.player)
-        self.add_gravity(self.player)
-        self.add_friction(self.player)
+        for player in self.players:
+            player.x += player.dx
+            self.jump(player)
+            self.add_gravity(player)
+            self.add_friction(player)
 
-        self.player.y += self.player.dy
+            player.y += player.dy
 
-        self.check_collisions(self.player)
+            self.check_collisions(player)
 
 
-        #draw player
-        if self.player.is_buff_jump:
-            self.player.color = Color.WHITE.value
-        else:
-            self.player.color = Color.RED.value
-        pygame.draw.rect(self.screen, self.player.color, (self.player.x, self.player.y, self.player.width, self.player.height))
-        pygame.display.flip()
+            #draw player
+            if player.is_buff_jump:
+                player.color = Color.WHITE.value
+            else:
+                if player.name == "player_1" :player.color = Color.RED.value
+                if player.name == "player_2" :player.color = Color.CYAN.value
+
+            pygame.draw.rect(self.screen, player.color, (player.x, player.y, player.width, player.height))
+            pygame.display.flip()
             
     def jump(self, player: Player):
         if player.jumping and player.nb_jumping_frame < self.fps * player.jumping_time:
@@ -132,7 +138,7 @@ class Game():
             player.nb_jumping_frame += 1
         else:
             player.jumping = False
-            self.player.nb_jumping_frame = 0
+            player.nb_jumping_frame = 0
 
 
     def add_gravity(self, player):
@@ -152,7 +158,7 @@ class Game():
 
                 block_rect = pygame.Rect(block.x, block.y, block.width, block.height)
                 if player_rect.colliderect(block_rect):
-                    block.apply_effect(self)
+                    block.apply_effect(self, player)
                     if block.type != "jump" and player.is_buff_jump :
                         player.jumping_height *= BUFF_JUMP
                         player.is_buff_jump = False

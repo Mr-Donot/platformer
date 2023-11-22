@@ -72,7 +72,7 @@ class Freeplay():
                     elif play_button_rect.collidepoint(event.pos):
                         if self.selected_map is not None :
                             pygame.quit()
-                            return ["game", 60, [int(self.selected_map)]] 
+                            return ["game", FPS, [int(self.selected_map)]] 
                     # Check if any dropdown option is clicked
                     for option in dropdown_options:
                         image_rect = option["image"].get_rect(topleft=(margin_inside_selector + dropdown_rect.x + (dropdown_options.index(option) % num_images_per_row) * (image_width + col_spacing),
@@ -105,4 +105,3 @@ class Freeplay():
 
             pygame.display.flip()
 
-# Assuming you have defined Color class and SCREEN_WIDTH/SCREEN_HEIGHT constants elsewhere in your code

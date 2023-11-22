@@ -5,7 +5,11 @@ There is no clear objective to this project.
 
 Currently 4 maps playable
 
-**Controls : Arrows**
+**New gameplay **
+- 1v1 : 2 players, first to the winning block win
+
+**Controls Player 1 : Arrows**
+**Controls Player 2 : [Z,S,Q,D]**
 
 ### COMPILE TUTORIAL 
 
@@ -43,5 +47,4 @@ Winning screen :
 - timer shown at the end
 - score shown at the end
 
-New gameplay :
-- 1v1 : 2 players, first to the winning block win
+

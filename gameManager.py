@@ -23,7 +23,7 @@ class GameManager():
         self.use_result()
     
     def launch_2players(self, fps, maps):
-        self.page = Game(fps, maps)
+        self.page = Game(fps, maps, 2)
         self.result = self.page.run()
         self.use_result()
 

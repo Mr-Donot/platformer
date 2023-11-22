@@ -35,7 +35,8 @@ class Game():
             pygame.display.set_caption("Platformer")
             self.init_block(m)
             self.init_players(keys=["up", "down", "left", "right"], color=Color.RED.value, name="player_1")
-            self.init_players(keys=["z", "s", "q", "d"], color=Color.CYAN.value, name="player_2")
+            if self.nb_player == 2:
+                self.init_players(keys=["z", "s", "q", "d"], color=Color.CYAN.value, name="player_2")
 
             has_quit = self.run_one_map()
             if has_quit :
@@ -207,6 +208,7 @@ class Game():
 
             if player.y < 0:
                 player.y = 0
+                player.dy = 0
             elif player.y > SCREEN_HEIGHT - player.height:
                 player.y = SCREEN_HEIGHT - player.height
                 player.dy = 0

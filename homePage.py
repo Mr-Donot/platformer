@@ -46,14 +46,14 @@ class Homepage():
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     if self.aventure_rect.collidepoint(event.pos):
                         pygame.quit()
-                        return ["game", FPS, [0, 1, 2, 3]]
+                        return ["game", FPS, [0, 1, 2, 3, 4]]
                     elif self.free_play_rect.collidepoint(event.pos):
                         pygame.quit()
                         return ["freeplay", None, None]
 
                     elif self.two_players_rect.collidepoint(event.pos):
                         pygame.quit()
-                        return ["2players", FPS, [randint(0, 3)]]
+                        return ["2players", FPS, [randint(0, 4)]]
                         
                     elif self.exit_rect.collidepoint(event.pos):
                         pygame.quit()

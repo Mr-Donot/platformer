@@ -17,9 +17,20 @@ class Freeplay():
         return text_surface, text_rect, color
 
     def create_dropdown(self):
-        if os.path.exists("images/map_thumbnail"):
-            file_names = [f for f in os.listdir("images/map_thumbnail") if os.path.isfile(os.path.join("images/map_thumbnail", f))]
-        
+        file_names = []
+        if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
+            # Running as a bundled executable
+            base_path = sys._MEIPASS
+        else:
+            # Running as a regular script
+            base_path = os.path.abspath(".")
+
+        # Construct the full path to the "images/map_thumbnail" folder
+        thumbnail_folder = os.path.join(base_path, "images", "map_thumbnail")
+
+        # Check if the folder exists
+        if os.path.exists(thumbnail_folder):
+            file_names = [f for f in os.listdir(thumbnail_folder) if os.path.isfile(os.path.join(thumbnail_folder, f))]
         dropdown_options = []
         for name in file_names:
             dropdown_options.append({"id" : name.replace("map", "").replace(".png", ""),"image": pygame.image.load("images/map_thumbnail/"+name), "title": name.replace("map", "Map ").replace(".png", "")})

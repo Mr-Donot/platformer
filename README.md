@@ -20,7 +20,7 @@ pip install pyinstaller
 
 Then, go on the project folder and compile the main.py file using :
 ```
-pyinstaller --onefile main.py
+pyinstaller --onefile --noconsole --add-data "images;images" main.py
 ```
 *This command can take some time.*
 
